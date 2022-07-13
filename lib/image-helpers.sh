@@ -91,7 +91,7 @@ unmount_on_exit()
 	[[ $CRYPTROOT_ENABLE == yes ]] && cryptsetup luksClose "${ROOT_MAPPER}"
 	losetup -d "${LOOP}" >/dev/null 2>&1
 	rm -rf --one-file-system "${SDCARD}"
-	exit_with_error "debootstrap-ng was interrupted" || true # don't trigger again
+	#exit_with_error "debootstrap-ng was interrupted" || true # don't trigger again
 
 }
 
@@ -109,7 +109,8 @@ check_loop_device()
 			display_alert "Creating device node" "$device"
 			mknod -m0660 "${device}" b "0x$(stat -c '%t' "/tmp/$device")" "0x$(stat -c '%T' "/tmp/$device")"
 		else
-			exit_with_error "Device node $device does not exist"
+			#exit_with_error "Device node $device does not exist"
+			return
 		fi
 	fi
 
